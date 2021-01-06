@@ -2,12 +2,42 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA==" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.0/axios.min.js" integrity="sha512-DZqqY3PiOvTP9HkjIWgjO6ouCbq+dxqWoJZ/Q+zPYNHmlnI2dQnbJ5bxAHpAMw+LXRm4D72EIRXzvcHQtE8/VQ==" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="style.css">
-    <title></title>
+    <title>Boolflix</title>
   </head>
   <body>
 
-    prova
+    <div id="container">
+      <nav>
+        <h1 id="logo">BOOLFLIX</h1>
+        <input type="text" name="" value="" placeholder="Cerca il movie" id="search" v-model="movie" @keydown.enter="allSearch">
+      </nav>
+
+      <main id="main">
+        <div class="covers_container">
+          <div v-for="(movie, index) in movieArray" class="covers">
+            <img v-if="movie.backdrop_path" :src="prefix + movie.backdrop_path" :alt="movie.title || movie.name" class="background_covers">
+            <img v-else :src="imageNotFound" :alt="movie.title || movie.name" class="background_covers">
+
+            <ul id="text">
+              <li>Titolo: {{movie.title || movie.name}}</li>
+              <li>Titolo originale: {{movie.original_title || movie.original_name}}</li>
+              <li>Voto:
+                <i v-for="vote in movieVoteArray[index]" class="fas fa-star"></i>
+                <i v-for="vote in (5 - movieVoteArray[index])" class="far fa-star"></i>
+              </li>
+              <li>Lingua:{{movie.original_language}}</li>
+              <li>Overview: {{movie.overview}}</li>
+            </ul>
+          </div>
+        </div>
+      </main>
+
+
+    </div>
 
     <script src="script.js" charset="utf-8"></script>
   </body>
